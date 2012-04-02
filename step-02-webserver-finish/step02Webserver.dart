@@ -21,7 +21,7 @@ void requestDispatch(HttpRequest request, HttpResponse response) {
     serveFile('simple.js', 'application/javascript', response);
     break;
     
-  case '/feeds/default/':
+  case '/feeds/posts/default':
     retrieveFeed(response);
     break;
     
@@ -53,24 +53,27 @@ void retrieveFeed(HttpResponse response) {
   HttpClient client = new HttpClient();
   Uri feedUrl = new Uri.fromString('http://code.blogger.com/feeds/posts/default');
   HttpClientConnection  conn = client.getUrl(feedUrl);
-  OutputStream output = response.outputStream;
 
   conn.onError = (HttpException e) { 
     response.statusCode = 500;
-    output.close();
+    response.outputStream.writeString("Error retrieving content: $e");
+    response.outputStream.close();
     log('Error retrieving $feedUrl: $e');
   };
   
   conn.onResponse = (HttpClientResponse clientResponse) {
-    response.headers['Content-Type'] = clientResponse.headers['Content-Type'];
+    response.setHeader('Content-Type', 'application/xml');
+    OutputStream output = response.outputStream;
     InputStream input = clientResponse.inputStream;
 
     input.onData = () {
       List data = input.read();
       String payload = new String.fromCharCodes(data);
+      log('data: $payload');
       output.writeString(payload);
     };
     input.onClosed = () {
+      log('input closed');
       output.close();
     };
   }; 

@@ -21,7 +21,7 @@ void requestDispatch(HttpRequest request, HttpResponse response) {
     serveFile('simple.js', 'application/javascript', response);
     break;
     
-  case '/feeds/default/':
+  case '/feeds/posts/default':
     retrieveFeed(response);
     break;
     
@@ -30,16 +30,24 @@ void requestDispatch(HttpRequest request, HttpResponse response) {
   }
 }
 
+void pageNotFound(HttpResponse response, String filePath) {
+  // TODO: Serve a 404 page for files we don't know about
+  // hint: this is pretty much step-01, with a few minor modifications...
+}
+
 void serveFile(String path, String contentType, HttpResponse response) {
   log("Serving $path for $contentType");
-  // TODO: complete
+  // TODO: Serve specified files for certain request. File IO ftw!
+  // hint: http://api.dartlang.org/io/File.html
 }
 
 void retrieveFeed(HttpResponse response) {
-  // TODO: complete
-}
-
-void pageNotFound(HttpResponse response, String filePath) {
+  // This is harder, it's about mirroring requests for /feeds/posts/default/ 
+  // to http://code.blogger.com/feeds/posts/default/ taking advantage of Dart's 
+  // evented IO.
+  
+  HttpClient client = new HttpClient();
+  Uri feedUrl = new Uri.fromString('http://code.blogger.com/feeds/posts/default');
   // TODO: complete
 }
 
