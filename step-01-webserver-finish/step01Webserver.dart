@@ -10,7 +10,7 @@ main() {
 
 void helloWorld(HttpRequest request, HttpResponse response) {
   log("Serving request for ${request.path + (request.queryString == null? "" : "?"+request.queryString)}");
-  response.headers['Content-Type'] = 'text/html';
+  response.setHeader('Content-type', 'text/html');
   response.outputStream.writeString('''
 <html>
 <head>

@@ -31,6 +31,7 @@ void requestDispatch(HttpRequest request, HttpResponse response) {
 }
 
 void serveFile(String path, String contentType, HttpResponse response) {
+  log("Serving $path for $contentType");
   // TODO: complete
 }
 
