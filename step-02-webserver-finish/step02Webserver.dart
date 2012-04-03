@@ -54,7 +54,7 @@ void retrieveFeed(HttpResponse response) {
   Uri feedUrl = new Uri.fromString('http://code.blogger.com/feeds/posts/default');
   HttpClientConnection  conn = client.getUrl(feedUrl);
 
-  conn.onError = (HttpException e) { 
+  conn.onError = (Exception e) { 
     response.statusCode = 500;
     response.outputStream.writeString("Error retrieving content: $e");
     response.outputStream.close();
