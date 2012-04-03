@@ -1,9 +1,3 @@
-#import('dart:html');
-#import('dart:json');
-
-
-void main() {
-  var jsonPostList = @'''
 {
  "kind": "blogger#postList",
  "nextPageToken": "CgkIChjh_p7z7iUQzJTEAQ",
@@ -261,20 +255,3 @@ void main() {
   }
  ]
 }
-''';
-  
-  Map postList = JSON.parse(jsonPostList);
-  Element contentDiv = document.query('#content');
-  int count = 0;
-  
-  postList['items'].forEach((post) {
-    contentDiv.innerHTML += """
-      <h2>${post['title']}</h2>
-      ${post['content']}
-      <hr>
-    """;
-  });
-  
-}
-
-
