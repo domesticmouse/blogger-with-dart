@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Parsing JSON with Dart</title>
+    <style>
+	#container {
+		display: table-row;
+	}
+	#titles {
+		display: table-cell;
+		width: 300px;
+		min-width: 200px;
+	}
+	
+	#content {
+		display: table-cell;
+		padding-left: 10px;
+	}
+
+	#titles ul {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+
+    #titles li {
+      list-style: none
+    }
+    
+    #titles a {
+      display: block;
+      background-color: #efefef;
+      padding: 5px;
+      margin: 5px;
+      max-width: 290px;
+      border-radius: 10px;
+      padding-left: 10px;
+      padding-bottom: 6px;
+    }
+    
+    #titles a.selected {
+      background-color: #eeeeff;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+    	<div id="titles">
+    		Blogpost titles should appear here.
+    	</div>
+    	<div id="content">
+    		Content should appear here.
+    	</div>
+    </div>
+  
+
+    <script type="application/dart" src="step03Webapp.dart"></script>
+    <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script>
+    
+  </body>
+</html>
