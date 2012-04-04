@@ -50,33 +50,14 @@ void serveFile(String path, String contentType, HttpResponse response) {
 }
 
 void retrieveFeed(HttpResponse response) {
+  // This is harder, it's about mirroring requests for /feeds/posts/default/ 
+  // to http://code.blogger.com/feeds/posts/default/ taking advantage of Dart's 
+  // evented IO.
+  
   HttpClient client = new HttpClient();
   Uri feedUrl = new Uri.fromString('http://code.blogger.com/feeds/posts/default');
-  HttpClientConnection  conn = client.getUrl(feedUrl);
-
-  conn.onError = (Exception e) { 
-    response.statusCode = 500;
-    response.outputStream.writeString("Error retrieving content: $e");
-    response.outputStream.close();
-    log('Error retrieving $feedUrl: $e');
-  };
-  
-  conn.onResponse = (HttpClientResponse clientResponse) {
-    response.setHeader('Content-Type', 'application/xml');
-    OutputStream output = response.outputStream;
-    InputStream input = clientResponse.inputStream;
-
-    input.onData = () {
-      List data = input.read();
-      String payload = new String.fromCharCodes(data);
-      log('data: $payload');
-      output.writeString(payload);
-    };
-    input.onClosed = () {
-      log('input closed');
-      output.close();
-    };
-  }; 
+  HttpClientConnection conn = client.openUrl('GET', feedUrl);
+  conn.onResponse = (HttpClientResponse r) => r.inputStream.pipe(response.outputStream);
 }
 
 void pageNotFound(HttpResponse response, String filePath) {
