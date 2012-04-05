@@ -50,10 +50,6 @@ void serveFile(String path, String contentType, HttpResponse response) {
 }
 
 void retrieveFeed(HttpResponse response) {
-  // This is harder, it's about mirroring requests for /feeds/posts/default/ 
-  // to http://code.blogger.com/feeds/posts/default/ taking advantage of Dart's 
-  // evented IO.
-  
   HttpClient client = new HttpClient();
   Uri feedUrl = new Uri.fromString('http://code.blogger.com/feeds/posts/default');
   HttpClientConnection conn = client.openUrl('GET', feedUrl);
