@@ -36,6 +36,8 @@ void serveFile(String path, String contentType, HttpResponse response) {
   OutputStream output = response.outputStream;
   response.headers['Content-Type'] = contentType;
   
+  // TODO(brettmorgan): confirm if this can also use the pipe technique.
+
   input.onData = () {
     List data = input.read();
     String payload = new String.fromCharCodes(data);
