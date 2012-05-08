@@ -5,12 +5,12 @@ main() {
   HttpServer server = new HttpServer();
 
   server.listen('127.0.0.1', 8080);
-  server.onRequest = helloWorld;
+  server.addRequestHandler((r)=>true, helloWorld);
 }
 
 void helloWorld(HttpRequest request, HttpResponse response) {
   log("Serving request for ${request.path + (request.queryString == null? "" : "?"+request.queryString)}");
-  response.setHeader('Content-type', 'text/html');
+  response.headers.add('Content-type', 'text/html');
   response.outputStream.writeString('''
 <html>
 <head>
