@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>Parsing JSON with Dart</title>
+  </head>
+  <body>
+    
+    <div id="content"></div>
+  
+    <script type="application/dart" src="step04Webapp.dart"></script>
+    <script src="http://dart.googlecode.com/svn/branches/bleeding_edge/dart/client/dart.js"></script> 
+	<script type="text/javascript">
+    // See http://blog.sethladd.com/2012/03/jsonp-with-dart.html
+    function callbackForJsonpApi(s) {
+      window.postMessage(JSON.stringify(s), '*');
+    }
+    </script>
+  </body>
+</html>
