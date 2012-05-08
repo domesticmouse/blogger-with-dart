@@ -17,7 +17,7 @@ void helloWorld(HttpRequest request, HttpResponse response) {
   <title>Hello World</title>
 </head>
 <body>
-  <h1>Hello Peeps!</h1>
+  <h1>Hello NCSS!</h1>
   <p>It is currently ${new Date.now()}</p>
 </body>
 </html>

@@ -30,14 +30,29 @@ void requestDispatch(HttpRequest request, HttpResponse response) {
   }
 }
 
+void pageNotFound(HttpResponse response, String filePath) {
+  response.statusCode = 404;
+  response.headers['Content-Type'] = 'text/html';
+  response.outputStream.writeString('''
+<html>
+<head>
+  <title>File not found</title>
+</head>
+<body>
+  <h1>File not found: $filePath</h1>
+  <p>Sorry, no such file found. Try again later?</p>
+</body>
+</html>
+''');
+  response.outputStream.close();  
+}
+
 void serveFile(String path, String contentType, HttpResponse response) {
   log("Serving $path for $contentType");
   InputStream input = new File(path).openInputStream();
   OutputStream output = response.outputStream;
   response.headers['Content-Type'] = contentType;
   
-  // TODO(brettmorgan): confirm if this can also use the pipe technique.
-
   input.onData = () {
     List data = input.read();
     String payload = new String.fromCharCodes(data);
@@ -56,23 +71,6 @@ void retrieveFeed(HttpResponse response) {
   Uri feedUrl = new Uri.fromString('http://code.blogger.com/feeds/posts/default');
   HttpClientConnection conn = client.openUrl('GET', feedUrl);
   conn.onResponse = (HttpClientResponse r) => r.inputStream.pipe(response.outputStream);
-}
-
-void pageNotFound(HttpResponse response, String filePath) {
-  response.statusCode = 404;
-  response.headers['Content-Type'] = 'text/html';
-  response.outputStream.writeString('''
-<html>
-<head>
-  <title>File not found</title>
-</head>
-<body>
-  <h1>File not found: $filePath</h1>
-  <p>Sorry, no such file found. Try again later?</p>
-</body>
-</html>
-''');
-  response.outputStream.close();  
 }
 
 void log(String data) {
