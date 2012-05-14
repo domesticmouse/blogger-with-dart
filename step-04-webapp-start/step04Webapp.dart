@@ -26,6 +26,6 @@ void main() {
   window.on.message.add(dataReceived);
   
   Element script = new Element.tag("script");
-  script.src = "https://www.googleapis.com/blogger/v2/blogs/3213900/posts?pp=1&key=AIzaSyC-5XG3E-wyDq91TdUkVT5T9t6Wxbqa2Mc&callback=callbackForJsonpApi";
+  script.src = "https://www.googleapis.com/blogger/v2/blogs/7322214733046744349/posts?pp=1&key=AIzaSyC-5XG3E-wyDq91TdUkVT5T9t6Wxbqa2Mc&callback=callbackForJsonpApi";
   document.body.elements.add(script);
 }
